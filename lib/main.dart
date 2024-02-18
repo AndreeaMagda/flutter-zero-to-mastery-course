@@ -15,7 +15,7 @@ class MagdyzApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Feedback'),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -39,77 +39,54 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  bool isSwitched = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+        centerTitle: true,
       ),
       body: Center(
         child: Column(
           children: <Widget>[
-            Container(
-              height: 200,
-              padding: const EdgeInsets.all(20),
-              margin: EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Color.fromARGB(255, 152, 125, 199),
-                border: Border.all(width: 2),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: PageView(
-                children: const [
-                  Text(
-                    "Andreea",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  Text(
-                    "Magdyz",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  Text(
-                    "Hammy",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  Text(
-                    "Luna",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  Text(
-                    "Harry",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  Text(
-                    "Ron",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                                    Text(
-                    "Andreea",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  Text(
-                    "Magdyz",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ],
+          const  Flexible(
+              child: Image(
+                image: AssetImage('images/salat.jpg'),
+                width: 200,
+                height: 300,
               ),
             ),
-            const Text(
-              'You have pushed the button this many times:',
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Feedback',
+                ),
+              ),
             ),
-            SizedBox(height: 100),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            Switch(
+              value: isSwitched,
+              onChanged: (value) {
+                setState(
+                  () {
+                    isSwitched = value;
+                  },
+                );
+              },
             ),
+            SizedBox(
+              height: 50,
+              width: 100,
+              child: TextButton(
+                onPressed: () {},
+                child: const Text('Send'),
+              ),
+            )
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
