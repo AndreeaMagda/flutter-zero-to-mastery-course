@@ -37,12 +37,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
   void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+    setState(() {});
   }
 
   bool isSwitched = false;
@@ -58,15 +54,23 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            //data navigation using basic navigation
             TextButton(
               onPressed: () {
-                Navigator.of(context).pushNamed("/first");
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const FirstPage(name: "hamster"),
+                  ),
+                );
               },
               child: const Text('First Page'),
             ),
+            //data navigation using named navigation
             TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, "/second");
+              onPressed: () async {
+                final response = await Navigator.pushNamed(context, "/second",
+                    arguments: "Magdyz");
+                print(response);
               },
               child: const Text('Second Page'),
             ),

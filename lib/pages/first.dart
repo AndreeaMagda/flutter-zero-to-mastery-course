@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
 class FirstPage extends StatelessWidget {
-  const FirstPage({super.key});
+  final String? name;
+  const FirstPage({super.key, this.name});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('First Page'),
+        title:  Text('Hello, $name'),
         centerTitle: true,
       ),
       body: TextButton(onPressed: (){
