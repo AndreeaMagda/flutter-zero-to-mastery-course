@@ -1,37 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:ztmcourse/signup.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Twitter clone',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Twitter Clone'),
-      debugShowCheckedModeBanner: false,
-    );
-  }
+  State<SignUp> createState() => _SignUpState();
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class _SignUpState extends State<SignUp> {
   GlobalKey<FormState> _signInKey = GlobalKey();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -46,7 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Text("Log in to Twitter",
+              const Text("Sing up to Twitter",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               Container(
                 margin: const EdgeInsets.fromLTRB(15, 30, 15, 0),
@@ -111,16 +89,15 @@ class _MyHomePageState extends State<MyHomePage> {
                       }
                     },
                     child: const Text(
-                      "Log in",
+                      "Sign Up",
                       style: TextStyle(color: Colors.white, fontSize: 18),
                     )),
               ),
               TextButton(
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const SignUp()));
+                    Navigator.of(context).pop();
                   },
-                  child: const Text("Don't have an account? Sign in here"))
+                  child: const Text("Already have an account? Log in"))
             ],
           ),
         ),
