@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ztmcourse/pages/first.dart';
 
 void main() {
   runApp(const MagdyzApp());
@@ -50,41 +51,22 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-          const  Flexible(
-              child: Image(
-                image: AssetImage('images/salat.jpg'),
-                width: 200,
-                height: 300,
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Feedback',
-                ),
-              ),
-            ),
-            Switch(
-              value: isSwitched,
-              onChanged: (value) {
-                setState(
-                  () {
-                    isSwitched = value;
-                  },
-                );
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const FirstPage()));
               },
+              child: const Text('First Page'),
             ),
-            SizedBox(
-              height: 50,
-              width: 100,
-              child: TextButton(
-                onPressed: () {},
-                child: const Text('Send'),
-              ),
-            )
+            TextButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const FirstPage()));
+              },
+              child: const Text('Second Page'),
+            ),
           ],
         ),
       ),
