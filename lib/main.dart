@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ztmcourse/pages/first.dart';
+import 'package:ztmcourse/pages/second.dart';
 
 void main() {
   runApp(const MagdyzApp());
@@ -16,8 +17,12 @@ class MagdyzApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Feedback'),
       debugShowCheckedModeBanner: false,
+      routes: {
+        '/': (context) => const MyHomePage(title: 'Home Page'),
+        '/first': (context) => const FirstPage(),
+        '/second': (context) => const SecondPage(),
+      },
     );
   }
 }
@@ -55,15 +60,13 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             TextButton(
               onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const FirstPage()));
+                Navigator.of(context).pushNamed("/first");
               },
               child: const Text('First Page'),
             ),
             TextButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const FirstPage()));
+                Navigator.pushNamed(context, "/second");
               },
               child: const Text('Second Page'),
             ),
