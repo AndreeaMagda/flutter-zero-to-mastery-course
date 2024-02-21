@@ -24,6 +24,8 @@ class _SignUpState extends State<SignUp> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              const Image(image:AssetImage('assets/twitterlogo.png'),width: 100, ),
+              SizedBox(height: 20,),
               const Text("Sing up to Twitter",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               Container(
