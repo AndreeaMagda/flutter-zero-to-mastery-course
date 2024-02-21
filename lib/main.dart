@@ -1,28 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:ztmcourse/pages/first.dart';
-import 'package:ztmcourse/pages/second.dart';
 
 void main() {
-  runApp(const MagdyzApp());
+  runApp(const MyApp());
 }
 
-class MagdyzApp extends StatelessWidget {
-  const MagdyzApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        brightness: Brightness.dark,
+        appBarTheme:AppBarTheme(
+          centerTitle: true,
+          toolbarHeight: 100,
+          color: Colors.grey.shade800,
+         
+          shadowColor: Colors.purple,),
+          textTheme: const TextTheme(
+            headline4: TextStyle(
+              fontSize: 36,
+              fontStyle: FontStyle.italic,
+            )
+          )
       ),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      
       debugShowCheckedModeBanner: false,
-      routes: {
-        '/': (context) => const MyHomePage(title: 'Home Page'),
-        '/first': (context) => const FirstPage(),
-        '/second': (context) => const SecondPage(),
-      },
     );
   }
 }
@@ -37,45 +43,39 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
+
   void _incrementCounter() {
-    setState(() {});
+    setState(() {
+      _counter++;
+    });
   }
 
-  bool isSwitched = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        
         title: Text(widget.title),
-        centerTitle: true,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            //data navigation using basic navigation
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const FirstPage(name: "hamster"),
-                  ),
-                );
-              },
-              child: const Text('First Page'),
+            const Text(
+              'You have pushed the button this many times:',
             ),
-            //data navigation using named navigation
-            TextButton(
-              onPressed: () async {
-                final response = await Navigator.pushNamed(context, "/second",
-                    arguments: "Magdyz");
-                print(response);
-              },
-              child: const Text('Second Page'),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
       ),
     );
   }
