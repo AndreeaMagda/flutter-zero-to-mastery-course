@@ -10,3 +10,5 @@ I'm currently following the Flutter Zero to Mastery Course to get started. Here 
 - Theme: Customizing the visual appearance of my apps.
 - Navigation: Navigating between screens and managing app flow.
 - Flutter Developer tools
+
+I created a learning  branch: <a href="https://github.com/AndreeaMagda/flutter-zero-to-mastery-course.git" >learning</a> 
