@@ -2,6 +2,7 @@
 
 
 What I'm Learning 📚
+
 I'm currently following the Flutter Zero to Mastery Course to get started. Here are some of the topics I've covered so far:
 
 - Flutter Fundamentals: Understanding the basics of Flutter.
