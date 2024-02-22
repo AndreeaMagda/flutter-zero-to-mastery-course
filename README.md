@@ -1,16 +1,11 @@
-# ztmcourse
+# Embarking on a Flutter Journey ✨
 
-A new Flutter project.
 
-## Getting Started
+What I'm Learning 📚
+I'm currently following the Flutter Zero to Mastery Course to get started. Here are some of the topics I've covered so far:
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Flutter Fundamentals: Understanding the basics of Flutter.
+- Layouts: Creating and managing layouts in Flutter.
+- Theme: Customizing the visual appearance of my apps.
+- Navigation: Navigating between screens and managing app flow.
+- Flutter Developer tools
