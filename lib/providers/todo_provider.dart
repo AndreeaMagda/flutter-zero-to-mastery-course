@@ -17,6 +17,15 @@ class TodoListNotifier extends StateNotifier<List<Todo>> {
     ];
   }
 
-  void completeTodo(int id) {}
-  void deleteTodo(Todo todo) {}
+  void completeTodo(int id) {
+    state=[
+     for(final todo in state)
+       if(todo.todoId==id)
+         Todo(todoId: todo.todoId,content: todo.content,completed: true)
+         else todo
+    ];
+  }
+  void deleteTodo(int id) {
+    state=state.where((todo)=>todo.todoId!=id).toList();
+  }
 }
