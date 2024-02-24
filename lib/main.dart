@@ -11,9 +11,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: 'ToDo App', 
-      home:   MyHomePage(),
+      title: 'ToDo App',
+      home: MyHomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
-
