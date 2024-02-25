@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ztmcourse/models/todo.dart';
 
-final Provider = StateNotifierProvider<TodoListNotifier, List<Todo>>((ref) {
+final todoProvider = StateNotifierProvider<TodoListNotifier, List<Todo>>((ref) {
   return TodoListNotifier();
 });
 
