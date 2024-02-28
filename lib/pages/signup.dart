@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -11,9 +12,10 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  final FirebaseAuth _auth=FirebaseAuth.instance;
   final GlobalKey<FormState> _signInKey = GlobalKey();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   final RegExp emailValid = RegExp(
       r"[a-zA-Z0-9.a-zA-Z0-9.!#$%&'+*-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
   @override
@@ -27,7 +29,7 @@ class _SignUpState extends State<SignUp> {
             children: <Widget>[
               const FaIcon(FontAwesomeIcons.twitter,color: Colors.blue,
               size: 70,),
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
               const Text("Sing up to Twitter",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               Container(
@@ -38,7 +40,7 @@ class _SignUpState extends State<SignUp> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: TextFormField(
-                  controller: _emailController,
+                  controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                       hintText: "Email",
@@ -63,7 +65,7 @@ class _SignUpState extends State<SignUp> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: TextFormField(
-                  controller: _passwordController,
+                  controller: passwordController,
                   obscureText: true,
                   decoration: const InputDecoration(
                       hintText: "Password",
@@ -86,10 +88,17 @@ class _SignUpState extends State<SignUp> {
                     color: Colors.blue,
                     borderRadius: BorderRadius.circular(30)),
                 child: TextButton(
-                    onPressed: () {
+                    onPressed: () async{
                       if (_signInKey.currentState!.validate()) {
-                        debugPrint("Email: ${_emailController.text}");
-                        debugPrint("Password: ${_passwordController.text}");
+                        try {
+                          await _auth.createUserWithEmailAndPassword(
+                              email: emailController.text,
+                              password: passwordController.text);
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(e.toString())));
+                        }
+                      
                       }
                     },
                     child: const Text(
