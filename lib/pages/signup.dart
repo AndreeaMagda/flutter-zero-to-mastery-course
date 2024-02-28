@@ -1,18 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ztmcourse/models/user.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
-
-  
 
   @override
   State<SignUp> createState() => _SignUpState();
 }
 
 class _SignUpState extends State<SignUp> {
-  final FirebaseAuth _auth=FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _signInKey = GlobalKey();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -27,9 +28,14 @@ class _SignUpState extends State<SignUp> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const FaIcon(FontAwesomeIcons.twitter,color: Colors.blue,
-              size: 70,),
-              const SizedBox(height: 20,),
+              const FaIcon(
+                FontAwesomeIcons.twitter,
+                color: Colors.blue,
+                size: 70,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               const Text("Sing up to Twitter",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               Container(
@@ -88,17 +94,21 @@ class _SignUpState extends State<SignUp> {
                     color: Colors.blue,
                     borderRadius: BorderRadius.circular(30)),
                 child: TextButton(
-                    onPressed: () async{
+                    onPressed: () async {
                       if (_signInKey.currentState!.validate()) {
                         try {
                           await _auth.createUserWithEmailAndPassword(
                               email: emailController.text,
                               password: passwordController.text);
+                        await  _firestore
+                              .collection("users")
+                              .add(FirebaseUser(email: emailController.text).toMap());
+                              if(!mounted) return;
+                              Navigator.pop(context);
                         } catch (e) {
                           ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text(e.toString())));
                         }
-                      
                       }
                     },
                     child: const Text(
