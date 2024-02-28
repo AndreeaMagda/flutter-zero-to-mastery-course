@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1095455799466",
+    "project_id": "twitter-magdy",
+    "storage_bucket": "twitter-magdy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1095455799466:android:a051037f22d31804cc78d3",
+        "android_client_info": {
+          "package_name": "com.example.ztmcourse"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8fE1P6FJiYgEGw510b8887nSgBKpfBNQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
