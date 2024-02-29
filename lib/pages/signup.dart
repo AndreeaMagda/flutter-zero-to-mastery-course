@@ -1,18 +1,17 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ztmcourse/models/user.dart';
+import 'package:ztmcourse/providers/user_provider.dart';
 
-class SignUp extends StatefulWidget {
+class SignUp extends ConsumerStatefulWidget {
   const SignUp({super.key});
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  ConsumerState<SignUp> createState() => _SignUpState();
 }
 
-class _SignUpState extends State<SignUp> {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+class _SignUpState extends ConsumerState<SignUp> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _signInKey = GlobalKey();
   final TextEditingController emailController = TextEditingController();
@@ -100,11 +99,11 @@ class _SignUpState extends State<SignUp> {
                           await _auth.createUserWithEmailAndPassword(
                               email: emailController.text,
                               password: passwordController.text);
-                        await  _firestore
-                              .collection("users")
-                              .add(FirebaseUser(email: emailController.text).toMap());
-                              if(!mounted) return;
-                              Navigator.pop(context);
+                          await ref
+                              .read(userProvider.notifier)
+                              .signUp(emailController.text);
+                          if (!mounted) return;
+                          Navigator.pop(context);
                         } catch (e) {
                           ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text(e.toString())));
