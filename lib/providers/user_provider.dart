@@ -26,7 +26,7 @@ class LocalUser {
 
 class UserNotifier extends StateNotifier<LocalUser> {
   UserNotifier()
-      : super(const LocalUser(id: "error", user: FirebaseUser(email: "error")));
+      : super(const LocalUser(id: "error", user: FirebaseUser(email: "error", name:"error", profilePic: "error")));
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -46,21 +46,22 @@ class UserNotifier extends StateNotifier<LocalUser> {
 
     state = LocalUser(
       id: response.docs[0].id,
-      user: FirebaseUser(email: email),
+      user:  FirebaseUser.fromMap(response.docs[0].data() as Map<String,dynamic>)
     );
   }
 
   Future<void> signUp(String email) async {
     DocumentReference response = await _firestore.collection("users").add(
-          FirebaseUser(email: email).toMap(),
+          FirebaseUser(email: email, name: "No name",profilePic: 'http://www.gravatar.com/avatar/?d=mp').toMap(),
         );
+        DocumentSnapshot snapshot=await response.get();
     state = LocalUser(
       id: response.id,
-      user: FirebaseUser(email: email),
+      user: FirebaseUser.fromMap(snapshot.data() as Map<String,dynamic>),
     );
   }
 
   void logout() {
-    state = const LocalUser(id: "error", user: FirebaseUser(email: "error"));
+    state = const LocalUser(id: "error", user: FirebaseUser(email: "error", name:"error", profilePic: "error"));
   }
 }
