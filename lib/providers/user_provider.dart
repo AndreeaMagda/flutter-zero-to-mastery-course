@@ -80,12 +80,12 @@ class UserNotifier extends StateNotifier<LocalUser> {
   Future<void> updateImage(File image) async {
     Reference ref = _storage.ref().child("users").child(state.id);
     TaskSnapshot snapshot = await ref.putFile(image);
-    String profiePicUrl=await snapshot.ref.getDownloadURL();
+    String profilePicUrl=await snapshot.ref.getDownloadURL();
     await _firestore
         .collection("users")
         .doc(state.id)
-        .update({'profiePic': profiePicUrl});
-    state = state.copyWith(user: state.user.copyWith(profilePic: profiePicUrl));
+        .update({'profilePic': profilePicUrl});
+    state = state.copyWith(user: state.user.copyWith(profilePic: profilePicUrl));
   }
 
   void logout() {

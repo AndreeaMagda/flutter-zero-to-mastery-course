@@ -33,7 +33,7 @@ class MyApp extends ConsumerWidget {
         builder: (context, snapshot) {
           if(snapshot.hasData){
             ref.read(userProvider.notifier).login(snapshot.data!.email!);
-            return Home();
+            return const Home();
           }
           return const SignIn(title: 'Twitter Clone');
         }

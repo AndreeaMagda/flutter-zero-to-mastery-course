@@ -12,7 +12,7 @@ class Settings extends ConsumerStatefulWidget {
 }
 
 class _SettingsState extends ConsumerState<Settings> {
-  TextEditingController _nameController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     LocalUser currentUser = ref.watch(userProvider);
@@ -20,6 +20,7 @@ class _SettingsState extends ConsumerState<Settings> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Settings Page"),
+        backgroundColor: Colors.deepPurple.shade300,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

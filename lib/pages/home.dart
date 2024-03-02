@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ztmcourse/pages/create.dart';
 import 'package:ztmcourse/pages/settings.dart';
 import 'package:ztmcourse/providers/user_provider.dart';
 
@@ -25,7 +26,6 @@ class Home extends ConsumerWidget {
             ),
           );
         }),
-        
       ),
       body: Column(
         children: [
@@ -49,20 +49,25 @@ class Home extends ConsumerWidget {
               onTap: () {
                 Navigator.pop(context);
                 Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => Settings()));
+                    .push(MaterialPageRoute(builder: (context) => const Settings()));
               },
             ),
-
             ListTile(
               title: const Text("Sign Out"),
               onTap: () {
-                 FirebaseAuth.instance.signOut();
-              ref.read(userProvider.notifier).logout();
+                FirebaseAuth.instance.signOut();
+                ref.read(userProvider.notifier).logout();
               },
             )
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const CreateTweet(),
+            ));
+      },
+      child: const Icon(Icons.add),),
     );
   }
 }
