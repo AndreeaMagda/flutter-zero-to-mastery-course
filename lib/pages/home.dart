@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ztmcourse/models/tweet.dart';
 import 'package:ztmcourse/pages/create.dart';
 import 'package:ztmcourse/pages/settings.dart';
+import 'package:ztmcourse/providers/tweet_provider.dart';
 import 'package:ztmcourse/providers/user_provider.dart';
 
 class Home extends ConsumerWidget {
@@ -27,12 +29,36 @@ class Home extends ConsumerWidget {
           );
         }),
       ),
-      body: Column(
-        children: [
-          Text(currentUser.user.email),
-          Text(currentUser.user.name),
-        ],
-      ),
+      body: ref.watch(feedProvider).when(
+          data: (List<Tweet> tweets) {
+            return ListView.builder(
+              itemCount: tweets.length,
+              itemBuilder: (context, count) {
+                return ListTile(
+                  leading: CircleAvatar(
+                    foregroundImage: NetworkImage(
+                      tweets[count].profilePic,
+                    ),
+                  ),
+                  title: Text(
+                    tweets[count].name,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text(
+                    tweets[count].tweet,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                    ),
+                  ),
+                );
+              },
+            );
+          },
+          error: (error, stackTrace) => const Center(
+                child: Text("error"),
+              ),
+          loading: () => const CircularProgressIndicator()),
       drawer: Drawer(
         child: Column(
           children: [
@@ -48,8 +74,8 @@ class Home extends ConsumerWidget {
               title: const Text("Settings"),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => const Settings()));
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const Settings()));
               },
             ),
             ListTile(
@@ -62,12 +88,14 @@ class Home extends ConsumerWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const CreateTweet(),
-            ));
-      },
-      child: const Icon(Icons.add),),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const CreateTweet(),
+          ));
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
