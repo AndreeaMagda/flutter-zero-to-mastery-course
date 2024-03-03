@@ -33,6 +33,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool clicked=false;
   SMIInput<bool>? _pressed;
   void _onRiveInit(Artboard artboard) {
     final controller = StateMachineController.fromArtboard(artboard, 'Button');
@@ -47,17 +48,29 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).primaryColorDark,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: GestureDetector(
-          onTapDown: (_) {
-            _pressed?.value = true;
-            
-          },
-          onTapCancel: () => _pressed?.value=false,
-            onTapUp: (_) => _pressed?.value=false,
-          child: RiveAnimation.asset(
-            'assets/rocket.riv',
-            onInit: _onRiveInit,
+     
+body: Container(),
+      floatingActionButton:  AnimatedContainer(
+        padding: const EdgeInsets.only(top:200),
+        alignment: clicked?Alignment.topRight : Alignment.bottomRight,
+        duration: const Duration(seconds: 1),
+        child: SizedBox(
+          width: 100,
+          height: 100,
+          child: GestureDetector(
+            onTapDown: (_) {
+              setState(() {
+                clicked=true;
+              });
+              _pressed?.value = true;
+              
+            },
+            onTapCancel: () => _pressed?.value=false,
+              onTapUp: (_) => _pressed?.value=false,
+            child: RiveAnimation.asset(
+              'assets/rocket.riv',
+              onInit: _onRiveInit,
+            ),
           ),
         ),
       ),
