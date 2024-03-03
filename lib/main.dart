@@ -31,8 +31,26 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
   bool state = true;
+  late final AnimationController _animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+      lowerBound: 0.5,
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +63,14 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            ScaleTransition(
+              scale: _animationController,
+              child: Container(
+                width: 200,
+                height: 200,
+                color: const Color.fromARGB(255, 130, 160, 96),
+              ),
+            ),
             AnimatedContainer(
               width: state ? 100 : 200,
               height: state ? 100 : 200,
@@ -53,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: AnimatedPadding(
                 padding: EdgeInsets.all(state ? 35 : 8),
                 duration: const Duration(seconds: 2),
-                child: const Text("Hey"),
+               
               ),
             )
           ],
@@ -61,6 +87,11 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          if (state) {
+            _animationController.forward();
+          } else {
+            _animationController.reverse();
+          }
           setState(() {
             state = !state;
           });
