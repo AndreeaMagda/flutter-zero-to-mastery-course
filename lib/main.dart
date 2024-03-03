@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 
 void main() {
   runApp(const MyApp());
@@ -14,10 +13,10 @@ class MyApp extends StatelessWidget {
       title: 'Animation',
       theme: ThemeData(
         colorScheme:
-            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 13, 95, 44)),
+            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 28, 129, 97)),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Art Class'),
+      home: const MyHomePage(title: 'Implicit Animation'),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -33,6 +32,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool state = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,35 +41,32 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: CustomPaint(
-        painter: MyPainter(),
-        size: MediaQuery.of(context).size,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            AnimatedContainer(
+              width: state ? 100 : 200,
+              height: state ? 100 : 200,
+              color: Colors.greenAccent,
+              duration: const Duration(seconds: 2),
+              child: AnimatedPadding(
+                padding: EdgeInsets.all(state ? 35 : 8),
+                duration: const Duration(seconds: 2),
+                child: const Text("Hey"),
+              ),
+            )
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            state = !state;
+          });
+        },
+        child: const Icon(Icons.change_circle_outlined),
       ),
     );
-  }
-}
-
-class MyPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    Paint linearPaint = Paint()..strokeWidth = 10;
-    canvas.drawLine(const Offset(50, 150), const Offset(150, 220), linearPaint);
-    canvas.drawLine(Offset(size.width - 50, 150), Offset(size.width - 150, 220),
-        linearPaint);
-    Paint circlePaint = Paint()..color = Colors.blueGrey;
-    canvas.drawCircle(const Offset(100, 250), 20, circlePaint);
-    canvas.drawCircle(Offset(size.width - 100, 250), 20, circlePaint);
-
-    Paint arcPaint = Paint()
-      ..strokeWidth = 10
-      ..style = PaintingStyle.stroke
-      ..color = Colors.redAccent;
-    Rect rect = const Rect.fromLTWH(105, 350, 220, 300);
-    canvas.drawArc(rect, math.pi, math.pi, true, arcPaint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
   }
 }
