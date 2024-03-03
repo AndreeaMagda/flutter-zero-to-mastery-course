@@ -31,7 +31,8 @@ class Home extends ConsumerWidget {
       ),
       body: ref.watch(feedProvider).when(
           data: (List<Tweet> tweets) {
-            return ListView.builder(
+            return ListView.separated(
+              separatorBuilder: (context, index) => const Divider(color: Colors.black,),
               itemCount: tweets.length,
               itemBuilder: (context, count) {
                 return ListTile(

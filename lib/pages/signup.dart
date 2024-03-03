@@ -35,7 +35,7 @@ class _SignUpState extends ConsumerState<SignUp> {
               const SizedBox(
                 height: 20,
               ),
-              const Text("Sing up to Twitter",
+              const Text("Sign up to Twitter",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               Container(
                 margin: const EdgeInsets.fromLTRB(15, 30, 15, 0),
