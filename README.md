@@ -1,11 +1,7 @@
-# Embarking on a Flutter Journey ✨
+# Animations✨
+
+<h3>Mars Landing - Rive Animation</h3>
 
 
-What I'm Learning 📚
+https://github.com/AndreeaMagda/flutter-zero-to-mastery-course/assets/122922300/1d28c1bb-5b84-46a0-9c95-620aa56300a2
 
-I'm currently following the Flutter Zero to Mastery Course to get started. Here are some of the topics I've covered so far:
-
-
-I created a learning  branch: <a href="https://github.com/AndreeaMagda/flutter-zero-to-mastery-course.git" >learning</a> <br>
-Todo App:  <a href="https://github.com/AndreeaMagda/flutter-zero-to-mastery-course.git" >todo App</a> <br>
-Twiter Clone:  <a href="https://github.com/AndreeaMagda/flutter-zero-to-mastery-course.git" >Twitter Clone</a> 
