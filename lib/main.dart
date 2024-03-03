@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rive/rive.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,10 +14,10 @@ class MyApp extends StatelessWidget {
       title: 'Animation',
       theme: ThemeData(
         colorScheme:
-            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 28, 129, 97)),
+            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 144, 18, 189)),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Implicit Animation'),
+      home: const MyHomePage(title: 'Moon  Landing'),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -31,72 +32,34 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage>
-    with SingleTickerProviderStateMixin {
-  bool state = true;
-  late final AnimationController _animationController;
-
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(
-      duration: const Duration(seconds: 2),
-      vsync: this,
-      lowerBound: 0.5,
-    );
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
+class _MyHomePageState extends State<MyHomePage> {
+  SMIInput<bool>? _pressed;
+  void _onRiveInit(Artboard artboard) {
+    final controller = StateMachineController.fromArtboard(artboard, 'Button');
+    artboard.addController(controller!);
+    _pressed = controller.findInput("Press");
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Theme.of(context).primaryColorDark,
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ScaleTransition(
-              scale: _animationController,
-              child: Container(
-                width: 200,
-                height: 200,
-                color: const Color.fromARGB(255, 130, 160, 96),
-              ),
-            ),
-            AnimatedContainer(
-              width: state ? 100 : 200,
-              height: state ? 100 : 200,
-              color: Colors.greenAccent,
-              duration: const Duration(seconds: 2),
-              child: AnimatedPadding(
-                padding: EdgeInsets.all(state ? 35 : 8),
-                duration: const Duration(seconds: 2),
-               
-              ),
-            )
-          ],
+        child: GestureDetector(
+          onTapDown: (_) {
+            _pressed?.value = true;
+            
+          },
+          onTapCancel: () => _pressed?.value=false,
+            onTapUp: (_) => _pressed?.value=false,
+          child: RiveAnimation.asset(
+            'assets/rocket.riv',
+            onInit: _onRiveInit,
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          if (state) {
-            _animationController.forward();
-          } else {
-            _animationController.reverse();
-          }
-          setState(() {
-            state = !state;
-          });
-        },
-        child: const Icon(Icons.change_circle_outlined),
       ),
     );
   }
